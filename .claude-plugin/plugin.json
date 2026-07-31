@@ -1,0 +1,9 @@
+{
+  "name": "claude-product-skills",
+  "version": "0.1.0",
+  "description": "Dashdoc product team skills — shaping, releasing, roadmap, and feature-review workflows for PMs and designers.",
+  "author": {
+    "name": "Dashdoc Product Team"
+  },
+  "repository": "https://github.com/grdscarabe/claude-product-skills"
+}
