@@ -5,7 +5,7 @@ Claude Code plugin for the Dashdoc product team — shaping, releasing, roadmap,
 ## Install
 
 ```
-/plugin install grdscarabe/claude-product-skills
+/plugin install dashdoc/claude-product-skills
 ```
 
 ## Skills
@@ -18,7 +18,6 @@ Claude Code plugin for the Dashdoc product team — shaping, releasing, roadmap,
 | `/shaping-requirements` | Generate requirements from a pitch card |
 | `/shaping-start` | Bootstrap a new pitch on the FigJam betting board |
 | `/shaping-steal` | Benchmark competitor UX and import screenshots to FigJam |
-| `/shaping-step` | Walk through the FOCUSED shaping method step by step |
 | `/shaping-success` | Define success criteria and metrics for a pitch |
 
 ### Releasing
@@ -35,6 +34,7 @@ Claude Code plugin for the Dashdoc product team — shaping, releasing, roadmap,
 
 | Skill | Trigger |
 |-------|---------|
+| `/ff-review` | Full ConfigCat feature flag audit — quality, expiration, ownership |
 | `/roadmap-card` | Draft or update a roadmap card in Notion |
 | `/review-pitch-tasks` | Review Linear tasks against a pitch spec |
 
