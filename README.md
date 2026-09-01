@@ -4,9 +4,16 @@ Claude Code plugin for the Dashdoc product team — shaping, releasing, roadmap,
 
 ## Install
 
+In an interactive `claude` terminal (two steps, one-time):
+
 ```
-/plugin install dashdoc/claude-product-skills
+plugin marketplace add dashdoc/claude-product-skills
 ```
+```
+plugin install claude-product-skills
+```
+
+Then start a new session — skills load at session start.
 
 ## Skills
 
