@@ -40,7 +40,7 @@ release-faq --linear-project "CRUD of signatories"
 ## Step 1 — Gather input
 
 **If `--linear [ids]` was given:**
-Fetch each issue in parallel with `mcp__linear__get_issue`. Extract title, description (Problem + Solution sections), and any relevant detail.
+Fetch each issue in parallel with `mcp__54d3c450-50e8-43e9-a5fd-211855d395e3__get_issue`. Extract title, description (Problem + Solution sections), and any relevant detail.
 
 Also read the **QA Tests** section of each issue if present — the Result column is the ground truth for what actually shipped:
 - `✅` — confirmed working; safe to document
@@ -51,7 +51,7 @@ Also read the **QA Tests** section of each issue if present — the Result colum
 The Solution section in Linear describes *intended* behavior. The QA Result column describes *actual* behavior. When they conflict, trust the QA results.
 
 **If `--linear-project [name]` was given:**
-Use `mcp__linear__list_projects` to find the project, then `mcp__linear__list_issues` with that project ID. Fetch each issue in parallel.
+Use `mcp__54d3c450-50e8-43e9-a5fd-211855d395e3__list_projects` to find the project, then `mcp__54d3c450-50e8-43e9-a5fd-211855d395e3__list_issues` with that project ID. Fetch each issue in parallel.
 
 **If free-form text was given:**
 Use it directly as the feature description.
@@ -66,7 +66,7 @@ If the input is ambiguous or too thin to identify FAQ implications, ask Fabien:
 ### 2a — Fetch the FAQ index
 
 Fetch the parent FAQ page to get the list of sub-pages:
-`mcp__notion__notion-fetch("https://www.notion.so/dashdoc/46318bb1cffa412f87d76bf667f02fad")`
+`mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-fetch("https://www.notion.so/dashdoc/46318bb1cffa412f87d76bf667f02fad")`
 
 List all child pages (FAQ sections).
 
@@ -77,10 +77,10 @@ From the input (pitch content / issue descriptions), extract:
 - Potential user questions this change would trigger
 
 Search for relevant FAQ pages:
-- `mcp__notion__notion-search` with key terms from the input
+- `mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-search` with key terms from the input
 - Also fetch any section pages whose titles clearly relate (e.g., "Permissions", "Zones", "Signatories")
 
-Fetch each relevant page with `mcp__notion__notion-fetch`.
+Fetch each relevant page with `mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-fetch`.
 
 ### 2c — Identify changes needed
 
@@ -177,15 +177,15 @@ Proceed with these changes? (yes / edit first / skip)
 Implement in this order: updates first, then creations, then removals.
 
 ### Updates
-For each update, use `mcp__notion__notion-update-page` to modify the relevant block(s) on the page. Preserve all surrounding content exactly — change only the identified entry.
+For each update, use `mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-update-page` to modify the relevant block(s) on the page. Preserve all surrounding content exactly — change only the identified entry.
 
 ### Creations
-For new entries within an existing page, use `mcp__notion__notion-update-page` to append the new `> ### Question` block and its answer into the correct subsection.
+For new entries within an existing page, use `mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-update-page` to append the new `> ### Question` block and its answer into the correct subsection.
 
-For new pages (if proposed and approved), use `mcp__notion__notion-create-pages` with the FAQ parent page as parent, following the required structure format exactly.
+For new pages (if proposed and approved), use `mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-create-pages` with the FAQ parent page as parent, following the required structure format exactly.
 
 ### Removals
-Use `mcp__notion__notion-update-page` to remove the identified blocks. If an entire subsection becomes empty after removal, remove the subsection heading too.
+Use `mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-update-page` to remove the identified blocks. If an entire subsection becomes empty after removal, remove the subsection heading too.
 
 ### Required FAQ structure format (always follow)
 

@@ -24,9 +24,9 @@ release-translations FLO-412 FLO-415 FLO-418
 ## Step 1 — Collect PR numbers from Linear issues
 
 For each issue ID, run in parallel:
-- `mcp__linear__get_issue` — attachments include linked GitHub PRs; extract PR numbers from URLs matching `github.com/.*/pull/(\d+)`
-- `mcp__linear__list_issues` with `parentId` set to the issue ID — fetch sub-issues, then for each sub-issue run `mcp__linear__get_issue` to get their attachments too
-- `mcp__linear__list_comments` on the top-level issue — scan comment bodies for GitHub PR URLs
+- `mcp__54d3c450-50e8-43e9-a5fd-211855d395e3__get_issue` — attachments include linked GitHub PRs; extract PR numbers from URLs matching `github.com/.*/pull/(\d+)`
+- `mcp__54d3c450-50e8-43e9-a5fd-211855d395e3__list_issues` with `parentId` set to the issue ID — fetch sub-issues, then for each sub-issue run `mcp__54d3c450-50e8-43e9-a5fd-211855d395e3__get_issue` to get their attachments too
+- `mcp__54d3c450-50e8-43e9-a5fd-211855d395e3__list_comments` on the top-level issue — scan comment bodies for GitHub PR URLs
 
 Collect all unique PR numbers found across the issue, its sub-issues, and all comments.
 

@@ -1,6 +1,6 @@
 ---
 name: release-changelog
-description: Create the changelog entry for a released Dashdoc feature — classifies it as Fix/Quickwin/Feature/Launch, qualifies it (Communication Priority, Market, domain/team/roadmap/cycle, builders), then creates ONE row per change in the 🛎️ Changelog Notion database. The native Notion→Slack automation posts it to #changelog automatically. Accepts either a pitch Notion URL or a list of Linear issue IDs. Use whenever Fabien says things like "changelog for [pitch]", "release note for FLO-xxx", "write up what we just shipped", "changelog entry", "draft release note", "what should I post in #changelog", or any equivalent release-communication request. Confirm with Fabien before writing to Notion.
+description: Create the changelog entry for a released Dashdoc feature — classifies it as Quickwin/Feature/Launch, qualifies it (Communication Priority, Market, domain/team/roadmap/cycle, entitlement gating, builders), then creates ONE row per change in the 🛎️ Changelog Notion database. The native Notion→Slack automation posts it to #changelog automatically. Accepts either a pitch Notion URL or a list of Linear issue IDs. Use whenever Fabien says things like "changelog for [pitch]", "release note for FLO-xxx", "write up what we just shipped", "changelog entry", "draft release note", "what should I post in #changelog", or any equivalent release-communication request. Confirm with Fabien before writing to Notion.
 ---
 
 # release-changelog — Create the Changelog DB Entry
@@ -8,6 +8,8 @@ description: Create the changelog entry for a released Dashdoc feature — class
 Given a pitch page or Linear ticket(s): classify the change, qualify it, draft the body, confirm with Fabien, then **create one row in the 🛎️ Changelog database**. Posting to `#changelog` is handled automatically by a native Notion→Slack automation on row creation — there is no manual Slack step.
 
 > This skill implements the [Changelog overload PDR](https://app.notion.com/p/3996d66c0b4a8105ae93e6213d6ed0dc): one qualified row per shipped change is the single source of truth; distribution is driven off `Communication Priority`.
+>
+> Every row hits `#changelog-hose` instantly via the native automation. `🙌 Medium` + `🌟 High` are then delivered weekly to `#changelog` by [changelog-digest](../changelog-digest/SKILL.md), which reads the rows this skill creates. **`Communication Priority` decides whether a change is ever announced beyond the hose, and `Slack summary` is the sentence the digest shows** — get both right here.
 
 ## Usage
 
@@ -30,17 +32,17 @@ release-changelog --linear FLO-412 FLO-415 FLO-418
 - **Database**: `🛎️ Changelog (aka Product release notes)` — `https://app.notion.com/p/17e6d66c0b4a804ca659eb53a60266a0`
 - **Data source id (create parent)**: `4fc841cd-c4b5-4677-a76b-8469048890e7`
 - **One row per shipped change** (not one page per cycle — the old per-cycle-page model is retired).
-- After the row is created, the native automation posts a card to `#changelog` (`CANPU267R`) using the row's **Name + Type + Slack summary + link**. Do **not** post to Slack manually unless Fabien explicitly asks for a cross-post copy.
+- After the row is created, the native automation posts a card to **`#changelog-hose`** (`C0C0GNM1TRC`) — the real-time firehose — using the row's **Name + Type + Slack summary + link**. `#changelog` itself gets the weekly digest instead (see [changelog-digest](../changelog-digest/SKILL.md)). Do **not** post to Slack manually unless Fabien explicitly asks for a cross-post copy.
 
 ---
 
 ## Step 1 — Gather input
 
 **If `--linear [ids]` was given:** fetch each issue and its comments in parallel:
-- `mcp__linear__get_issue` — title, Problem, Solution, assignee, Linear URL, team, labels
-- `mcp__linear__list_comments` — scan for video links (Tella, Loom), FAQ/Notion URLs, PR links
+- `mcp__54d3c450-50e8-43e9-a5fd-211855d395e3__get_issue` — title, Problem, Solution, assignee, Linear URL, team, labels
+- `mcp__54d3c450-50e8-43e9-a5fd-211855d395e3__list_comments` — scan for video links (Tella, Loom), FAQ/Notion URLs, PR links
 
-**If a Notion pitch URL was given:** `mcp__notion__notion-fetch` the page. Extract the Claim section (user value), linked Linear issues (fetch each + its comments in parallel), the roadmap card, and any feature-flag mention.
+**If a Notion pitch URL was given:** `mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-fetch` the page. Extract the Claim section (user value), linked Linear issues (fetch each + its comments in parallel), the roadmap card, and any feature-flag mention.
 
 From comments across all issues, extract:
 - **Video links** (`tella.tv/…`, `loom.com/…`) → embed inline in the body
@@ -59,12 +61,11 @@ If the input is too thin to classify or write, ask for more.
 
 | Type | When |
 |------|------|
-| **Fix** | Bug was broken, now repaired. No new functionality. |
-| **Quickwin** | Small improvement or usability enhancement. |
+| **Quickwin** | Small improvement or usability enhancement — **including a repaired bug**. |
 | **Feature** | New capability or significant enhancement. New UI/workflow. |
 | **Launch** | Major, transformative change. Old-vs-new comparison. |
 
-Lean on the Linear label (`🐛` = Fix, `🍭` = Feature/Quickwin) and scope when unclear. Exact option values (must match): `Fix` / `Quickwin` / `Feature` / `Launch`.
+There are exactly three types — `Quickwin` / `Feature` / `Launch` — matching the Notion `Type` property and the PDR. **There is no `Fix` type.** A `🐛`-labelled Linear issue is a `Quickwin`, normally with `🔍 Low` Communication Priority. Lean on the Linear label (`🐛` → Quickwin/Low, `🍭` → Feature/Quickwin) and scope when unclear.
 
 ---
 
@@ -81,6 +82,7 @@ Resolve every property. **Rule: try to infer from context; if not explicit, ask 
 | **🧩 Domains** | query the Sub-Domains DS `b0357249-a0b8-42e7-a311-5e47658adfaf` by name (from pitch domain / Linear team/label); resolves Product Line TMS/Flow via rollup | auto lookup; ask if ambiguous |
 | **🫂 Team** | owning team → Teams DS `2b86d66c-0b4a-80c5-a4c5-000b37c9a1b5` (from the sub-domain's team or the Linear team) | auto lookup; ask if ambiguous |
 | **🛡️ Linked to Roadmap** | the pitch / roadmap card from input → Roadmap DS `2336d66c-0b4a-806e-9203-000b7a8c4902` | auto |
+| **🔏 Gated by entitlement** | is the feature restricted to a plan/add-on? → Entitlements tracker DS `444c2190-11f3-4b35-b775-95dc00c135b2` (match by `Feature` title). Leave empty if the feature is available to everyone. | **manual — confirm** |
 | **Released during cycle** | current cycle → Cycles DS `2336d66c-0b4a-8028-b971-000b319ff0d0` (query for the active cycle) | auto; confirm |
 | **Linked to Linear** | main issue URL | auto |
 | **👷 Builders** | Linear assignees + PR authors + designer, as Notion `person`s | auto; ask for designer if missing |
@@ -89,10 +91,15 @@ Resolve every property. **Rule: try to infer from context; if not explicit, ask 
 
 **Do not set `Betting`** — deprecated.
 
+**🔏 Gated by entitlement heuristic** (propose, then confirm):
+- Search the Entitlements tracker (`Feature` title) for an entry matching the shipped feature. If found, link it and mention its `included per Plan?` value(s) when presenting for confirmation, so Fabien can sanity-check the plan.
+- If nothing matches and it isn't obviously plan-gated, leave the property empty rather than guessing — don't invent an entitlement.
+- If Fabien flags the feature as gated but no Entitlements tracker row exists yet, ask whether to leave it unlinked (row not created yet) rather than creating one from this skill — entitlement rows are out of scope here.
+
 **Communication Priority heuristic** (propose, then confirm):
 - `🌟 High (now to all Dashdockers)` — Launch, or a major Feature that everyone should know (revenue, big workflow change).
 - `🙌 Medium (weekly to all)` — most Features and notable Quickwins.
-- `🔍 Low (need to know basis)` — Fixes, small Quickwins, internal/CS-tooling changes.
+- `🔍 Low (need to know basis)` — bug repairs, small Quickwins, internal/CS-tooling changes.
 
 **Slack summary format** (feeds the `#changelog` automation, which already adds Name + Type + link — so the summary just fills the "what is it" gap):
 - One sentence, **English**, plain, no fluff. What the user can now do + the benefit.
@@ -109,7 +116,7 @@ Rules for all types:
 - If FF-gated, add a callout at the very top: a blue callout `⚠️ This feature is under FF \`featureFlagName\``.
 - Tone: factual, short bullets. Emoji only in section headers.
 
-### Fix / Quickwin — simple shape
+### Quickwin — simple shape
 
 ```
 [FF callout if any]
@@ -169,6 +176,7 @@ Show everything before writing:
 - Market: …                   ← confirm
 - Domains: … · Team: … · Roadmap: … · Cycle: …
 - Linked to Linear: …
+- Gated by entitlement: … (plan: …) / not gated   ← confirm
 - Builders: …
 - Date of first activation: … ← confirm (FF: `flagName` / not FF-gated)
 
@@ -187,14 +195,14 @@ Create this row in the 🛎️ Changelog DB? (yes / edit / skip)
 
 ## Step 6 — Create the row
 
-Use `mcp__notion__notion-create-pages` with `parent = { type: "data_source_id", data_source_id: "4fc841cd-c4b5-4677-a76b-8469048890e7" }`.
+Use `mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-create-pages` with `parent = { type: "data_source_id", data_source_id: "4fc841cd-c4b5-4677-a76b-8469048890e7" }`.
 
 Property keys (exact, incl. emoji) and value formats:
 - `"Name"`: title text
-- `"Type"`: one of `Launch` / `Feature` / `Quickwin` / `Fix`
+- `"Type"`: one of `Launch` / `Feature` / `Quickwin`
 - `"Communication Priority"`: one of `🔍 Low (need to know basis)` / `🙌 Medium (weekly to all)` / `🌟 High (now to all Dashdockers)`
-- `"Market"`: array from `🏭 Shippers` / `🇧🇪 Belgium` / `🇺🇸 USA` / `🇪🇸 Spain` / `🇫🇷 France` / `All`
-- `"🧩 Domains"`, `"🫂 Team"`, `"🛡️ Linked to Roadmap"`, `"Released during cycle"`: arrays of related page URLs/IDs
+- `"Market"`: array from `🏭 Shippers` / `🇧🇪 Carrier Belgium` / `🇺🇸 Carrier USA` / `🇪🇸 Carrier Spain` / `🇫🇷 Carrier France` / `All`
+- `"🧩 Domains"`, `"🫂 Team"`, `"🛡️ Linked to Roadmap"`, `"🔏 Gated by entitlement"`, `"Released during cycle"`: arrays of related page URLs/IDs (leave `"🔏 Gated by entitlement"` empty/omitted when the feature isn't plan-gated)
 - `"Linked to Linear"`: URL string
 - `"👷 Builders"`: array of Notion user IDs
 - `"date:Date of first activation:start"`: `YYYY-MM-DD`; plus `"date:Date of first activation:is_datetime"`: `0`
@@ -223,6 +231,7 @@ Only produce a manual Slack copy if Fabien explicitly asks for a cross-post.
 - **Bug with no pitch**: Linear title + Problem is enough; skip the roadmap link if none.
 - **Builder is free text / not a Linear user**: resolve via `/sync-team` or ask; don't leave a plain-text name in the person property.
 - **No current cycle found**: ask Fabien which cycle to link.
+- **Feature restricted to a plan/add-on**: link `🔏 Gated by entitlement` to the matching Entitlements tracker row; if none exists yet, leave it unlinked and flag it to Fabien rather than creating a new entitlement entry.
 
 ---
 

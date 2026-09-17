@@ -28,7 +28,7 @@ release-harvestr https://www.notion.so/dashdoc/Flow-Typed-custom-fields-2b96d66c
 
 ## Step 1 — Fetch the roadmap card
 
-`mcp__notion__notion-fetch([notion-roadmap-card-url])`
+`mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-fetch([notion-roadmap-card-url])`
 
 Extract:
 - **Feature name**: the `Name` property (e.g., `Flow > Typed custom fields`)
@@ -66,16 +66,16 @@ Capture all AI-suggested (unvalidated) entries.
 
 ### D — Related Linear issues
 
-**If `--linear [id]` was provided**: fetch directly with `mcp__linear__get_issue([id])`.
+**If `--linear [id]` was provided**: fetch directly with `mcp__54d3c450-50e8-43e9-a5fd-211855d395e3__get_issue([id])`.
 
-**Otherwise**: attempt auto-detection using `mcp__linear__research` with the feature name as query. Look for the main user story issues (label `🧑‍💻 Dev`) and the DoD parent issue (label `🚀 DoD`). Fetch each found issue with `mcp__linear__get_issue`.
+**Otherwise**: attempt auto-detection with `mcp__54d3c450-50e8-43e9-a5fd-211855d395e3__list_issues(query=[feature name], label="🧑‍💻 Dev")` for the main user story issues, then the same call with `label="🚀 DoD"` for the DoD parent issue (`query` searches issue title + description). Fetch each found issue with `mcp__54d3c450-50e8-43e9-a5fd-211855d395e3__get_issue`.
 
 If no Linear issues are found, proceed without Linear data — coverage will rely on the pitch Solution section and FAQ only. Note this limitation in the report.
 
 ### E — FAQ entries (supplementary)
-`mcp__notion__notion-search([feature name keywords])` scoped to the FAQ parent page `https://www.notion.so/dashdoc/46318bb1cffa412f87d76bf667f02fad`.
+`mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-search([feature name keywords])` scoped to the FAQ parent page `https://www.notion.so/dashdoc/46318bb1cffa412f87d76bf667f02fad`.
 
-Fetch any relevant FAQ pages found with `mcp__notion__notion-fetch`. These reflect what was officially documented as shipped behavior.
+Fetch any relevant FAQ pages found with `mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-fetch`. These reflect what was officially documented as shipped behavior.
 
 ---
 

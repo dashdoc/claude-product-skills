@@ -190,11 +190,11 @@ Six sticky notes in the FigJam template:
 
 1. **Every sticky you create belongs to a section — not to the clone frame.** Use `section.appendChild(sticky)`. Stickies parented to the clone drift outside section bounds and look disconnected from their group.
 2. **Color-match the section.** Don't accept `createSticky()`'s default yellow. Copy fills from an existing sticky already inside the section (`peer.fills`), or from `section.fills[0]` as a fallback. Cards with off-color stickies look like they don't belong.
-3. **A section child's `.x`/`.y` that you SET are RELATIVE to the section's top-left — not page-absolute.** Empirically confirmed: after `section.appendChild(node)`, the resulting `node.absoluteBoundingBox.x === section.absoluteBoundingBox.x + node.x`. So to place a child at a target absolute point, convert: `node.x = targetAbsX − section.absoluteBoundingBox.x` (and same for y). Assigning a page-absolute coord (e.g. a negative board coord) directly to a section child flings it thousands of px off-canvas. Use `absoluteBoundingBox` only to **read/verify** — never to assign. (See `shared-references/figjam-mechanics.md (in this plugin root)`.)
+3. **A section child's `.x`/`.y` that you SET are RELATIVE to the section's top-left — not page-absolute.** Empirically confirmed: after `section.appendChild(node)`, the resulting `node.absoluteBoundingBox.x === section.absoluteBoundingBox.x + node.x`. So to place a child at a target absolute point, convert: `node.x = targetAbsX − section.absoluteBoundingBox.x` (and same for y). Assigning a page-absolute coord (e.g. a negative board coord) directly to a section child flings it thousands of px off-canvas. Use `absoluteBoundingBox` only to **read/verify** — never to assign. (See `~/.claude/skills/shared-references/figjam-mechanics.md`.)
 4. **Keep text short:** Appetite ≤ 250 chars, metric/DC sticky ≤ 220 chars, counter text node = single short line. Longer text overflows the template's fixed-width layout.
 5. **Verify before finishing:** after creating stickies, read back `absoluteBoundingBox` on each and confirm it's inside the owning section's box. If any is outside, reposition with **relative** coords (`child.x = ownerAbs.x − sectionAbs.x + margin`) before returning the URL.
 
-Use `mcp__figma__use_figma` on the board (file key: `ZsyYHB1iSYvWDZerEZfHR4`) to:
+Use `mcp__1ba6bdfa-e088-4566-98a8-89902a5b5b12__use_figma` on the board (file key: `ZsyYHB1iSYvWDZerEZfHR4`) to:
 
 1. **Find the template** — iterate ALL pages with `for (const page of figma.root.children)`, call `await figma.setCurrentPageAsync(page)` on each, then `figma.getNodeById("4982:3520")`. Clone immediately when found. **Do NOT use `.find()` then switch page** — this does not work.
 

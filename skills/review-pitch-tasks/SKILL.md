@@ -28,11 +28,11 @@ If no project is given, ask which one (or list the current/next-cycle Community 
 
 ## Step 1 — Resolve the project and pull its user stories
 
-1. Resolve the project: `mcp__linear__list_projects(query=...)` (or the URL's slug). Confirm the match if ambiguous.
-2. `mcp__linear__list_issues(project=<id>, includeArchived=false)` — pull all issues, then keep the **review set**:
+1. Resolve the project: `mcp__54d3c450-50e8-43e9-a5fd-211855d395e3__list_projects(query=...)` (or the URL's slug). Confirm the match if ambiguous.
+2. `mcp__54d3c450-50e8-43e9-a5fd-211855d395e3__list_issues(project=<id>, includeArchived=false)` — pull all issues, then keep the **review set**:
    - **User stories only**: keep issues labelled `🧑‍💻 Dev` **and their subtasks**.
    - **Exclude** `💣 Risks` and `🚀 DoD` tasks, and any **Canceled** issue.
-3. Fetch full descriptions as needed (`mcp__linear__get_issue`) so you can show Problem + Solution.
+3. Fetch full descriptions as needed (`mcp__54d3c450-50e8-43e9-a5fd-211855d395e3__get_issue`) so you can show Problem + Solution.
 
 Order the review by logical grouping (e.g. connection flow → data/permissions → lifecycle → display), not by ID — mirror how the pitch hangs together. Nest subtasks under their parent.
 
@@ -48,7 +48,7 @@ Then go **one story at a time**. For each:
 
 ## Step 3 — Apply his edits (full structural, confirm-by-instruction)
 
-When Fabien states a change, **apply it directly** to Linear via `mcp__linear__save_issue` — his instruction is the go-ahead (don't re-ask). If *you* are proposing a change he hasn't requested, show the draft first. Never invent facts, numbers, names, or IDs.
+When Fabien states a change, **apply it directly** to Linear via `mcp__54d3c450-50e8-43e9-a5fd-211855d395e3__save_issue` — his instruction is the go-ahead (don't re-ask). If *you* are proposing a change he hasn't requested, show the draft first. Never invent facts, numbers, names, or IDs.
 
 Supported edits:
 - **Rewrite** Problem/Solution (and QA rows only if they'd contradict the new solution — keep them consistent, don't expand them here).

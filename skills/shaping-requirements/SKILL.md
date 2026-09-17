@@ -68,7 +68,7 @@ Emit a **single markdown table** (FigJam pastes it as a table object), columns: 
 
 Keep statements one sentence; betting-table-readable.
 
-If asked to put it on the board, see `shared-references/figjam-mechanics.md (in this plugin root)` for the FigJam table/section + coordinate mechanics. Otherwise output text only and offer to (a) write it into the card's Scope section, or (b) scaffold Linear user stories via `create-pitch-tasks` once the pitch is bet.
+If asked to put it on the board, see `~/.claude/skills/shared-references/figjam-mechanics.md` for the FigJam table/section + coordinate mechanics. Otherwise output text only and offer to (a) write it into the card's Scope section, or (b) scaffold Linear user stories via `create-pitch-tasks` once the pitch is bet.
 
 ---
 

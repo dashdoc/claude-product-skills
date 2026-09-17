@@ -1,6 +1,6 @@
 # FigJam / Figma board mechanics — shared reference
 
-Operational know-how for writing to the **Betting-Fabien** FigJam board (file key `ZsyYHB1iSYvWDZerEZfHR4`) via `mcp__figma__use_figma` and `upload_assets`. Hard-won; read before populating a block or importing images.
+Operational know-how for writing to the **Betting-Fabien** FigJam board (file key `ZsyYHB1iSYvWDZerEZfHR4`) via `mcp__1ba6bdfa-e088-4566-98a8-89902a5b5b12__use_figma` and `upload_assets`. Hard-won; read before populating a block or importing images.
 
 ---
 
