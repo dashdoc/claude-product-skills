@@ -15,6 +15,16 @@ plugin install claude-product-skills
 
 Then start a new session — skills load at session start.
 
+## Update
+
+Skills don't update automatically. When new versions are pushed to this repo, run:
+
+```
+plugin update claude-product-skills
+```
+
+Then start a new session to load the updated skills.
+
 ## Skills
 
 ### Shaping
