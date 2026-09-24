@@ -46,6 +46,8 @@ Then start a new session to load the updated skills.
 | `/release-harvestr` | Update Harvestr discovery state after a release |
 | `/release-success-dashboard` | Build the post-release success tracking dashboard |
 | `/release-translations` | Generate translated release notes |
+| `/changelog-digest` | Weekly product digest from the 🛎️ Changelog DB, posted to `#changelog` |
+| `/changelog-digest-monthly` | Monthly product digest, posted to `#team-product` for review before `#general` |
 
 ### Other
 
@@ -58,6 +60,10 @@ Then start a new session to load the updated skills.
 ## Shared references
 
 `shared-references/figjam-mechanics.md` — FigJam/Figma board mechanics (section-relative coordinates, image upload, stickies). Loaded automatically by the shaping skills.
+
+`shared-references/changelog-entry-reading.md` — how to read a 🛎️ Changelog entry for a digest line (page body over `Slack summary`, rollout state, demo link). Used by both changelog digests.
+
+`shared-references/cycle-context.md` — where cycle dates come from: all-day `Cycle N` / `Cooldown` events on the Dashdoc calendar, shaping week = week 4 of the cycle.
 
 ## Notes
 
