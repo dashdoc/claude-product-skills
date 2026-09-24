@@ -25,6 +25,23 @@ plugin update claude-product-skills
 
 Then start a new session to load the updated skills.
 
+## Releasing
+
+`plugin update` compares the `version` in `.claude-plugin/plugin.json` — it does **not** look at commits. Merging skill changes without bumping that version makes the command report "already at the latest version" and silently hand everyone the old skills.
+
+So every PR that touches `skills/` or `.claude-plugin/` must bump the version:
+
+- **patch** — wording, fixes within an existing skill
+- **minor** — a skill added, removed, or renamed
+- **major** — a change that breaks how a skill is invoked
+
+The `version-bump` CI check enforces this. If someone lands a change without it, the recovery is a reinstall:
+
+```
+plugin uninstall claude-product-skills@dashdoc-product
+plugin install claude-product-skills@dashdoc-product
+```
+
 ## Skills
 
 ### Shaping
@@ -59,7 +76,7 @@ Then start a new session to load the updated skills.
 
 ## Shared references
 
-`shared-references/figjam-mechanics.md` — FigJam/Figma board mechanics (section-relative coordinates, image upload, stickies). Loaded automatically by the shaping skills.
+`skills/shared-references/figjam-mechanics.md` — FigJam/Figma board mechanics (section-relative coordinates, image upload, stickies). Loaded automatically by the shaping skills.
 
 `shared-references/changelog-entry-reading.md` — how to read a 🛎️ Changelog entry for a digest line (page body over `Slack summary`, rollout state, demo link). Used by both changelog digests.
 
