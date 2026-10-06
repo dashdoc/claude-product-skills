@@ -53,6 +53,7 @@ Then start a new session to load the updated skills.
 
 | Skill | Trigger |
 |-------|---------|
+| `/motion-designer` | Direct a short animated video (voice, music, subtitles) about any subject, from scratch or from a template (e.g. `shaping-pitch`) — needs `dcli` + fframes, ≤ $5 OpenRouter |
 | `/ff-review` | Full ConfigCat feature flag audit — quality, expiration, ownership |
 | `/roadmap-card` | Draft or update a roadmap card in Notion |
 | `/review-pitch-tasks` | Review Linear tasks against a pitch spec |
