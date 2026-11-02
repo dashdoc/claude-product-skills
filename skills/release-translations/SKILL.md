@@ -88,3 +88,5 @@ flow.settings.zoneSetupTab.editSlotSettings.slotsSection
 If a PR had no locale file changes, note it inline (e.g. `PR #28507 — no locale changes (DB migration)`).
 
 If no keys were found across all PRs, say so explicitly.
+
+Before returning the final list, fetch `frontends/packages/i18n/locales/fr.ts` from the latest `dev` revision of `dashdoc/dashdoc` on GitHub and verify that every extracted key exists in it. Report any missing keys separately; if the file cannot be fetched, explicitly state that verification is incomplete.
