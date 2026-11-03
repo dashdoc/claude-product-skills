@@ -1,0 +1,38 @@
+name: version-bump
+
+on:
+  pull_request:
+    paths:
+      - 'skills/**'
+      - '.claude-plugin/**'
+
+jobs:
+  version-bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # `plugin update` compares plugin.json's version, never the commit log, so a
+      # skill change that ships without a bump reaches nobody.
+      - name: Require a version bump
+        run: |
+          set -euo pipefail
+          manifest=.claude-plugin/plugin.json
+          base=$(git show "origin/${{ github.base_ref }}:$manifest" | jq -r .version)
+          head=$(jq -r .version "$manifest")
+
+          if [ "$base" = "$head" ]; then
+            echo "::error file=$manifest::This PR changes skills/ or .claude-plugin/ but leaves version at $head. Bump it — see README § Releasing."
+            exit 1
+          fi
+
+          # Guard the direction too: a downgrade leaves installs stranded on the
+          # higher version, which `plugin update` treats as already current.
+          if [ "$(printf '%s\n%s\n' "$base" "$head" | sort -V | tail -1)" != "$head" ]; then
+            echo "::error file=$manifest::Version went backwards: $base -> $head."
+            exit 1
+          fi
+
+          echo "Version bumped: $base -> $head"
