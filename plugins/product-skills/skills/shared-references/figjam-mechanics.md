@@ -45,6 +45,18 @@ Notes:
 - `nodeId` sets the image as a **fill on that existing node** — the controllable path (you choose position + caption). Without `nodeId`, it auto-creates frames on the current page (uncontrolled placement).
 - WebP uploads fine via `upload_assets`, but `figma.createImageAsync(url)` in plugin code does **not** reliably handle WebP — prefer `upload_assets`, or convert first.
 
+### 2b. Bulk import without `nodeId` (tens of screenshots)
+
+Faster than one rectangle per image, and good enough when you re-parent afterwards. Worked for 68 PNGs in 3 calls.
+
+1. `upload_assets` with `count` up to 60 and **no** `nodeId`. It returns one `submitUrl` per file.
+2. POST each file as **multipart** (`-F "file=@name.png;type=image/png"`). The **filename becomes the layer name** (without `.png`), so name files `NN-...` first and they sort correctly. Loop in bash, URLs expire in 10 minutes. Result is `{"success":true,"placedOnNodeId":...}`.
+3. Each image lands as a top-level 400x300 `FRAME` on the page, in an arbitrary spot.
+4. In `use_figma`: filter `figma.currentPage.children` by `type === "FRAME"` and a name regex (**do not** match on `.png`), sort by name, `section.appendChild(n)`, `n.resize(480, 300)`, set section-relative `x/y` on a grid (pitch 520x370 for a 10-column grid in a 5800px section). Return the moved count and check that no top-level frames are left.
+5. Read the section back with `get_figjam` to confirm.
+
+Upload only the curated set. Deleting 40 frames afterwards is manual work for the user.
+
 ## 3. Getting competitor screenshots
 
 - **Help centers are usually gated** (HTTP 403 to WebFetch, login walls): Samsara KB, many support portals.
