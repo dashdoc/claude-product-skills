@@ -1,6 +1,6 @@
 ---
 name: itw-company-brief
-description: Before a Community discovery interview, collect everything known about the interviewee and their company — who the contact is, what the company does, since when and how they use Dashdoc (Metabase numbers), prior Harvestr/Notion/Slack/Intercom history — and return a facts-only brief plus the structured data that itw-page-prep puts on the interview page. Use when the PM says "brief for my 2:15", "who is this company", "prep the interview with X", "collect what you know about the company", "company brief", "itw-company-brief", or when a booking for a Disco Community slot appears on the calendar. Read-only: writes nothing to Notion, Harvestr or Linear.
+description: Before a Community discovery interview, collect everything known about the interviewee and their company — who the contact is, what the company does, since when and how they use Dashdoc (Metabase numbers), prior Harvestr/Notion/Slack/Intercom history — and return a facts-only brief plus the structured data that itw-page-prep puts on the interview page. Use when the PM says "brief for my 2:15", "who is this company", "prep the interview with X", "collect what you know about the company", "company brief", "itw-company-brief", or when a booking for a Disco Community slot appears on the calendar. Read-only, writes nothing to Notion, Harvestr or Linear.
 ---
 
 # itw-company-brief — Who am I about to talk to?
