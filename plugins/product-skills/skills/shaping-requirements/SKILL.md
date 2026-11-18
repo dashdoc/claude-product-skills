@@ -62,9 +62,15 @@ Separate **functional requirements** from **constraints / non-functional** (guar
 
 ## Step 6 — Output (one copy-paste table)
 
-Emit a **single markdown table** (FigJam pastes it as a table object), columns: `# | Area | Requirement | Priority | Evidence / source`. Use stable IDs (A1, A2, B1…) so requirements can be referenced elsewhere (Linear, FigJam, the card). Follow with:
-- an **Out-of-scope** mini-section (rows with reasons),
-- an **Open questions** list (genuine unknowns that block build-readiness — e.g. an eligibility definition, a cost ceiling owner).
+Emit a **single markdown table** (FigJam pastes it as a table object), columns: `# | Area | Requirement | Priority | Evidence / source | Status quo`. Use stable IDs (A1, A2, B1…) so requirements can be referenced elsewhere (Linear, FigJam, the card).
+
+**What the table must look like** (learned from a PM's rework of an eCMR requirements table):
+- **Status quo column is mandatory**: for each row, what the product does today — `✅` already OK / `🚫 <concrete gap in one line>` / `❓` unknown. Requirements are a gap analysis against today, not a wish list. Check the code, the FAQ or the board to fill it; mark `❓` rather than guess.
+- **Out-of-scope items are rows in the same table** (`❌ Out` priority, reason in Evidence), not a separate section. When you drop a requirement, move it to an `❌ Out` row with the reason — don't delete it.
+- **Fewer, plainer rows.** Merge rows that describe the same outcome (e.g. "state signature strength" + "show how the signatory was identified" = one row). Drop "option to strengthen X" rows — those are solution choices, not requirements. Plain language over jargon; keep legal/technical detail in Evidence.
+- **Priority reflects the source of pressure** — say which: legal requirement, customer feedback, or internal direction (e.g. "Must / Should — not required by law or customers, but internal direction wants eIDAS"). Customer insistence alone can justify a Must even when the law doesn't require it — say so explicitly (e.g. a sticky "NOT a legal requirement, kept because customers keep asking").
+- **No solution design in the table.** Solution options (e.g. how to model a new entity) come after, in a separate pros/cons table. Don't ask "which option?" as an open question at this stage.
+- **Open questions** only for genuine unknowns the user can't settle at this stage — not architecture questions for tech (certificate provider, hosting domain…) and not solution choices.
 
 Keep statements one sentence; betting-table-readable.
 
