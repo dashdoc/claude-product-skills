@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "dashdoc-product",
-  "description": "Dashdoc product team skills — shaping, releasing, roadmap, and feature-review workflows",
+  "description": "Dashdoc product team skills — shaping, releasing, roadmap, feature-review and Community discovery workflows",
   "owner": {
     "name": "Dashdoc Product Team",
     "email": "fabien.poulard@dashdoc.com"
@@ -11,7 +11,14 @@
       "name": "claude-product-skills",
       "description": "Shaping, releasing, FF review, roadmap, and pitch-review skills for Dashdoc PMs and designers.",
       "category": "productivity",
-      "source": ".",
+      "source": "./plugins/product-skills",
+      "homepage": "https://github.com/dashdoc/claude-product-skills"
+    },
+    {
+      "name": "community-discovery",
+      "description": "Community discovery interview pipeline: target list, outreach drafts, interview brief, Notion page prep, and post-call processing into Harvestr insights.",
+      "category": "productivity",
+      "source": "./plugins/community-discovery",
       "homepage": "https://github.com/dashdoc/claude-product-skills"
     }
   ]

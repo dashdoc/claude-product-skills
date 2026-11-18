@@ -1,6 +1,11 @@
 # claude-product-skills
 
-Claude Code plugin for the Dashdoc product team — shaping, releasing, roadmap, and feature-review workflows.
+Claude Code marketplace for the Dashdoc product team. It holds two plugins:
+
+| Plugin | For | Folder |
+|--------|-----|--------|
+| `claude-product-skills` | Every PM and designer — shaping, releasing, roadmap, feature-review | [`plugins/product-skills`](plugins/product-skills) |
+| `community-discovery` | Whoever runs Community discovery interviews — target list to Harvestr insights | [`plugins/community-discovery`](plugins/community-discovery) |
 
 ## Install
 
@@ -13,6 +18,8 @@ plugin marketplace add dashdoc/claude-product-skills
 plugin install claude-product-skills
 ```
 
+For the Community discovery interview skills, also run `plugin install community-discovery` (see its [README](plugins/community-discovery/README.md)).
+
 Then start a new session — skills load at session start.
 
 ## Update
@@ -21,6 +28,7 @@ Skills don't update automatically. When new versions are pushed to this repo, ru
 
 ```
 plugin update claude-product-skills
+plugin update community-discovery
 ```
 
 Then start a new session to load the updated skills.
@@ -60,11 +68,11 @@ Then start a new session to load the updated skills.
 
 ## Shared references
 
-`shared-references/figjam-mechanics.md` — FigJam/Figma board mechanics (section-relative coordinates, image upload, stickies). Loaded automatically by the shaping skills.
+`plugins/product-skills/skills/shared-references/figjam-mechanics.md` — FigJam/Figma board mechanics (section-relative coordinates, image upload, stickies). Loaded automatically by the shaping skills.
 
-`shared-references/changelog-entry-reading.md` — how to read a 🛎️ Changelog entry for a digest line (page body over `Slack summary`, rollout state, demo link). Used by both changelog digests.
+`plugins/product-skills/skills/shared-references/changelog-entry-reading.md` — how to read a 🛎️ Changelog entry for a digest line (page body over `Slack summary`, rollout state, demo link). Used by both changelog digests.
 
-`shared-references/cycle-context.md` — where cycle dates come from: all-day `Cycle N` / `Cooldown` events on the Dashdoc calendar, shaping week = week 4 of the cycle.
+`plugins/product-skills/skills/shared-references/cycle-context.md` — where cycle dates come from: all-day `Cycle N` / `Cooldown` events on the Dashdoc calendar, shaping week = week 4 of the cycle.
 
 ## Notes
 

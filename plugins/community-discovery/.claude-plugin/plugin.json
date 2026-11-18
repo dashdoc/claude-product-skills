@@ -1,0 +1,9 @@
+{
+  "name": "community-discovery",
+  "version": "0.1.0",
+  "description": "Community discovery interview pipeline for Dashdoc PMs: target list, outreach drafts, interview brief, Notion page prep, post-call processing into Harvestr insights.",
+  "author": {
+    "name": "Dashdoc Product Team"
+  },
+  "repository": "https://github.com/dashdoc/claude-product-skills"
+}
