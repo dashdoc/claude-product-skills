@@ -1,7 +1,7 @@
 {
   "name": "community-discovery",
-  "version": "0.1.0",
-  "description": "Community discovery interview pipeline for Dashdoc PMs: target list, outreach drafts, interview brief, Notion page prep, post-call processing into Harvestr insights.",
+  "version": "0.2.2",
+  "description": "Community discovery for Dashdoc PMs: interview pipeline (target list, outreach drafts, brief, Notion page prep, post-call processing into Harvestr insights) and idea-frame (ideas into the Figma opportunity tree).",
   "author": {
     "name": "Dashdoc Product Team"
   },
