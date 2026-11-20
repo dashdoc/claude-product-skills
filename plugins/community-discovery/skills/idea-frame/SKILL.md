@@ -5,7 +5,7 @@ description: Capture a product idea for the Community product, challenge it agai
 
 # idea-frame — From a loose idea to a frame and solutions in the tree
 
-Ideas come from the PM, the dev and the designer, and from interviews. They are cheap to have and easy to lose. This skill gives them one path: **capture → challenge → place in the tree → frame → backtest spec → review**. The tree stays alive: an idea enters it as soon as it is formalised, it does not wait for a "promotion" ceremony.
+Ideas come from the PM, the dev and the designer, and from interviews. They are cheap to have and easy to lose. This skill gives them one path: **capture → challenge → place in the tree → frame → backtest spec → review → backtest task**. The tree stays alive: an idea enters it as soon as it is formalised, it does not wait for a "promotion" ceremony.
 
 Read first: the PM's Community vision and the current opportunity solution tree (OST) in the Figma file. Ask the PM for the Figma link once, then remember it for the session.
 
@@ -15,10 +15,12 @@ Before any Figma write, load the Figma tools' own skills (`figma-use`, `figma-us
 
 ## Step 1 — Capture and challenge
 
-1. Restate the idea in **one sentence** plus: who it is for (which side of the network), what changes for them, where it came from (interview, observation, a colleague).
-2. Ask at most 3 sharp questions, only on what changes the design. Typical ones: who is the target (one side or both)? what is the moat (what can a competitor not copy)? what must stay private? Do not ask what you can read in the tree or in the evidence.
-3. **Evidence sweep** (read-only): Harvestr discoveries and messages, the Notion interview database, interview drafts in the repo. Sort into **For**, **Against or mixed**, **Gap**. Cite company and date for every item. Never invent a quote or a number. If a data claim is needed, pull the real figure with the `dashdoc-data` skill or write "xxx".
-4. Push back when the idea is really a need ("they want X" without a mechanism), or when it conflicts with a recorded decision.
+1. Restate the idea in **one sentence** plus: who it is for (which side of the network), what changes for them, where it came from (which interview, which date, or a colleague).
+2. **One idea or several?** If the idea mixes things with different owners, scopes or legal questions (a private list vs a shared signal, two sides of the network, a list vs an indicator built from it), propose to **split it into separate ideas**, one frame each, linked to each other by hyperlink. Build only the one the PM picks; note the others as related ideas.
+3. **Overlap check**: look in the tree and in the product screens already in the file for something that does the same job (an existing list, page or solution). If it exists, extend or merge it instead of creating a second one, and say so.
+4. Ask at most 3 sharp questions, only on what changes the design, **numbered, in plain words, each with your recommended answer** so the PM can reply inline. Do not use jargon the PM did not use: say "opportunity tree" and explain it once if asked what it is. Typical questions: who is the target (one side or both)? what must stay private? who does the work to make this work, and what do they get back (the incentive)? Do not ask what you can read in the tree or in the evidence.
+5. **Evidence sweep** (read-only): Harvestr discoveries and messages, the Notion interview database, interview drafts in the repo. Sort into **For**, **Against or mixed**, **Gap**. Cite company and date for every item. Never invent a quote or a number. If a data claim is needed, pull the real figure with the `dashdoc-data` skill or write "xxx". Say what you read in full and what only as a summary.
+6. **Push back**, with evidence, when: the idea is really a need ("they want X" without a mechanism); it conflicts with a recorded decision; or its **key assumption** looks weak (for example a flag on a company only works if bad actors reuse a stable identity, but the cases found were impersonation, where the flagged identity is the victim). The PM may correct you with facts you did not have: update the idea, and keep what is still unknown as a hypothesis.
 
 ## Step 2 — Place it in the tree
 
@@ -26,19 +28,20 @@ Rules (from continuous discovery):
 - A solution always sits under **one** opportunity. Compare solutions only under the same opportunity.
 - A global idea that spans several opportunities is **split into several solutions**, each under its own opportunity. The global idea lives in the frame; the solutions live in the tree.
 - Each idea has one **key assumption** (the thing that, if false, makes it fall).
-- If no opportunity fits, propose a new opportunity (with the interview evidence that supports it) and ask. Do not force a fit.
+- If no opportunity fits, propose a **new opportunity** and ask. Place it under the outcome, worded as the user's need ("I know partners I never want to deal with"), with **one evidence sticky per source** (company, date, short quote). Do not reuse a sticky already placed under another opportunity: use another source, or say the overlap to the PM.
 - Tag opportunities by side (shipper, carrier, both) when the product is a network.
 
 Output a short table: solution title | parent opportunity | key assumption. Wait for the PM's OK.
 
 ## Step 3 — Build the frame (the shaping format)
 
-One frame in an **Ideas** section of the same Figma file, in the shaping style: **few shapes, few colours, illustrations first**. Layout, left to right:
+One frame in an **Ideas** section of the same Figma file, **stacked below the previous idea frames**, named "<Idea> (shaping format)", in the shaping style: **few shapes, few colours, illustrations first**. Layout, left to right:
 
 1. **Title + one sentence** on a light pink frame (`#FFE0E0`).
 2. **Four salmon blocks** (`#FFAFA3`, about 420×620, text only): *How it works*, *Rules & properties*, *Limits / Out of scope / Open*, and a fourth if a second side exists. Short bullets, plain words.
 3. **Journey logigram, Today vs With the idea**: one white box per step, arrows between steps, one row for each. This is the part the PM values most. Add one logigram per side when there are two (demand, supply) as its own titled section.
-4. **Illustrative visuals** of what each user would see. They help picture the idea, they are **not mock-ups and not a spec**. Use placeholders for prices ("xxx – yyy €") and for anything not measured.
+4. **Illustrative visuals** of what each user would see. They help picture the idea, they are **not mock-ups and not a spec**. When a screen already exists, **adapt it** (its list, its page) instead of inventing a new UI. Use placeholders for prices ("xxx – yyy €") and for anything not measured. When the user can choose between modes, show the modes as options.
+   Say in the Rules block **what the user gains** from doing the work (the incentive), not only what the idea does.
 5. **Solution cards**: one per tree solution, with the title, "Under: <opportunity>" hyperlinked to the opportunity node, "Covers: …", and "Open in the tree →" hyperlinked to the solution block.
 6. **Hypotheses table**: `# | Hypothesis (if false, the idea falls) | How to test`. Include the legal and operational question when a third party acts on someone's behalf.
 7. **Evidence block** (salmon): For / Against or mixed / Gap / Next, from Step 1.
@@ -67,7 +70,15 @@ Rules: **thresholds are set after the first run, from the real baseline, never b
 - Screenshot the frame and the tree sections. Shorten any text truncated in a fixed-height box rather than shrinking the font. Check that connectors still reach their boxes.
 - Read the hyperlinks back. Keep the previous version of a replaced board, renamed "to delete once validated", until the PM confirms.
 - Review loop: read the file's **unresolved comments** (`get_comments`, filtered on the new frame). Sort them into *keep*, *change*, *question*. Do not edit anything the PM added or changed in the file without asking. Report in a table.
-- Do not run or write anything outside Figma without asking (Linear, Notion, Harvestr).
+- Do not run or write anything outside Figma without asking (Linear, Notion, Harvestr), except the backtest task of Step 7 once the PM said to create it.
+- Before updating anything the PM or a colleague may have touched (a Figma link, a Linear task), re-read its current version first.
+
+## Step 7 — Backtest task in Linear (once the PM validates the frame)
+
+Propose, then create when the PM says yes:
+- A task in the PM's team **backlog** (for Community: team COM), label **"Idea backtest"** (create the label, with a one-line description, if it does not exist). No priority, assignee, project or cycle unless asked.
+- Content: the backtest section of the frame, as written (period, what is replayed, how the pool is built, what is measured, data limits, **no threshold before the first run**), plus a definition of done: the baseline pulled and reported next to each hypothesis it tests.
+- Link both ways: the Figma frame attached to the task, and a link from the frame's backtest section back to the task (the PM may add it).
 
 ## Lifecycle of an idea
 
