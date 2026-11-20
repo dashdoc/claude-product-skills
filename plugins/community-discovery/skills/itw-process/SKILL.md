@@ -12,7 +12,7 @@ Post-call pipeline for a Community interview. Output files go to `$ITW_OUTPUT_DI
 - Audio files and/or transcripts: own recording, colleague recording (a co-interviewer), Gemini doc, Notion AI Meeting Notes already on the page
 - Who attended and who is the interviewee (name, role, company)
 
-**Gates:** nothing is written to Notion, Harvestr or Linear before the PM has seen it. Posting to Harvestr sends the PM's email to the Dashdoc n8n webhook as submitter — approving the post covers that. Dashdoc-facing text is English; verbatims stay in the original language.
+**Gates:** nothing is written to Notion, Harvestr or Linear before the PM has seen it. Posting to Harvestr sends the PM's email to the Dashdoc n8n webhook as submitter. Some sessions carry a privacy rule that blocks sending the PM's email to an external service unless they explicitly ask for it, and a blocked write wastes a round trip — so at the draft-approval step (Step 5.2) ask in the same message: "Approve posting? This sends your email to the Dashdoc n8n webhook as submitter." Their yes is the explicit approval; quote it if a block still triggers. Never put the PM's email in a file you write to disk before that yes. Dashdoc-facing text is English; verbatims stay in the original language.
 
 ---
 
@@ -64,10 +64,22 @@ Use the `/discovery-insights` format: **When / I want to / So I can**, a Context
 
 1. List existing messages and feedbacks for the requester company and for each target discovery. Drop or merge anything already covered; say what you skipped and why.
 2. Show the draft table (title, JTBD one-liner, target discovery, flags). Wait for approval.
-3. Create company and user if missing. **No phone needed to post:** the `create-message` webhook upserts the requester from name + email alone (verified 17 Nov 2026) — never say a phone is required. Caveat: that upsert creates the user **without a company**; the `create-user` webhook (which does need a phone and a `companyId`) is the only way to attach the company, so for a new contact either call it first with the phone from the page, or tell the PM to attach the company in the Harvestr UI. Post via the `create-harvestr-insight` webhook path, labels: `interview`, a type label, `client-<company-slug>`, source link = the Notion page.
+3. Create company and user if missing. **No phone needed to post:** the `create-message` webhook upserts the requester from name + email alone (verified 17 Nov 2026) — never say a phone is required. Caveat: that upsert creates the user **without a company**; the `create-user` webhook (which does need a phone and a `companyId`) is the only way to attach the company, so for a new contact either call it first with the phone from the page, or tell the PM to attach the company in the Harvestr UI. Post via the `create-harvestr-insight` webhook path (write the script/curl only after the explicit email approval above; read `SUBMITTER_EMAIL` etc. from env vars rather than hard-coding them, so the file holds no personal data). **If the write or the call is still blocked, do not stall:** give the PM the exact one-line command to run themselves with the emails in the environment (their own `!` shell), make the script accept message codes as args so a single failed post can be retried without duplicates, and continue with resolving ids and linking once they paste the output. Never ask them to retype messages. Labels: `interview`, a type label, `client-<company-slug>`, source link = the Notion page.
 4. Link each message to its discovery with a `CHUNK_CREATE` plan (read it back, confirm, execute). The webhook has no discovery field.
 5. Read back: each message exists, is linked, no AI suggestion pending to another discovery.
-6. Return a table of **direct links** (`https://app.harvestr.io/messages/search/<id>?query=`) + linked discovery, plus a "what to watch" list. Note that parallel sessions can create overlapping insights — if another session is posting, check first.
+6. **Closing message = the review table (mandatory, never replace it by a pointer to a file or ids).** The PM reviews the insights straight from your last message, so it must contain, for each interview (one table per interviewee, headed with name + company):
+
+   | # | Insight | Linked discovery | Flag |
+   |---|---|---|---|
+   | 1 | [<English title>](https://app.harvestr.io/messages/search/<harvestr-id>?query=) | <level-2 discovery name> | weak / inferred / demo-only / interviewer-led / counter-signal / candidate own discovery / TMS-not-Community |
+
+   Rules:
+   - The **title itself is the clickable link** (no separate "open" column, no bare ids, no "ids are in results.json").
+   - Use the **real Harvestr message id**, not the id the `create-message` webhook returns (they differ — get the real ones with `list_harvestr_messages` for the requester, matched by title). Never write `<id>` placeholders.
+   - Keep the draft numbering (G1, D1…) if the PM saw it during the draft review, so the two lists can be compared.
+   - Flags come from the `Fit:` line and counter-signal label; leave blank when none.
+   - Then a short **"To check when you review"** list (assignee by hand, links to a level-2 parent instead of a level-3, targets outside Community, shared/missing verbatims, retries after a webhook error, pending AI suggestions — say if you did NOT check them) and **"Still open"**.
+   - Note that parallel sessions can create overlapping insights — if another session is posting, check first.
 
 ## Step 6 — Close
 
@@ -92,3 +104,4 @@ The scripts live in this skill's `scripts/` folder (base directory shown when th
 - Two AI summaries often contradict each other and the transcript — the transcript wins.
 - A figure heard as "32 jours" may be 30 in the notes — keep both, flag.
 - Anything the interviewee said about their own stats can contradict the Metabase numbers: show both.
+- Webhook response id (`cmw…`) ≠ Harvestr message id. Direct links built from the webhook id are dead — always resolve the real id before building the closing table.
