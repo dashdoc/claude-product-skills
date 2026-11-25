@@ -5,6 +5,8 @@ description: Bootstrap a Dashdoc shaping session for a next-cycle roadmap card �
 
 # shaping-start — Bootstrap a Shaping Session
 
+> **Before writing to Notion**, read [`shared-references/notion-style.md`](../shared-references/notion-style.md) (placement, style, links, re-fetch after writing).
+
 Given a roadmap card URL, pull Harvestr data, draft the three core FOCUSED steps (**Frame → Observe → Claim**), create the FigJam frame automatically, and update the Notion card. Called without a URL, lists next-cycle Flow+Community cards and their shaping status.
 
 ---

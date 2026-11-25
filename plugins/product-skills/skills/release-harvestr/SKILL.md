@@ -5,6 +5,8 @@ description: Audit a Harvestr discovery at release time — check coverage of ev
 
 # release-harvestr — Audit Harvestr Discovery at Release
 
+> **Harvestr structure and working rules** (👷‍♀️ JTBD / 🍫 pitch, one sub-discovery level, clickable links, one plan at a time): read [`shared-references/harvestr-structure.md`](../shared-references/harvestr-structure.md) before reading or restructuring discoveries.
+
 Audit a Harvestr discovery against the roadmap card and what was shipped: check that every validated feedback is covered, verify discovery state and title format, and alert on pending suggested feedbacks.
 
 ## Usage
@@ -49,20 +51,24 @@ Extract:
 
 Run all of the following simultaneously:
 
-### A — Harvestr discovery details
-`mcp__harvestr__list_harvestr_discoveries(ids=[discoveryId], include=["feedback_count"])`
+### A — Harvestr discovery tree (top + every sub-discovery)
 
-Capture: title, state name, state type (`UNSTARTED` / `STARTED` / `FINISHED` / `CLOSED`), feedback count.
+**Most of the signal sits in the sub-discoveries.** A pitch discovery usually has sub-discoveries that measure its aspects, and Fabien aligns completion on those. Auditing only the top discovery misses most feedbacks and gives a wrong state picture (a real miss on 2026-11-04).
 
-### B — Validated feedbacks
-`mcp__harvestr__list_harvestr_feedback(discovery_ids=[discoveryId], source="validated", take=50, include=["customer"])`
+1. `mcp__harvestr__list_harvestr_discoveries(ids=[discoveryId], include=["feedback_count"])` — the top discovery.
+2. `mcp__harvestr__list_harvestr_discoveries(nested_parent_ids=[discoveryId], include=["feedback_count"])` — its sub-discoveries (Harvestr allows one level only, so no deeper recursion is needed).
 
-Capture all validated feedback entries: content, customer name.
+For **each** node (top + subs) capture: title, link, state name, state type (`UNSTARTED` / `STARTED` / `FINISHED` / `CLOSED`), feedback count.
 
-### C — Suggested feedbacks
-`mcp__harvestr__list_harvestr_feedback(discovery_ids=[discoveryId], source="suggested", take=50, include=["customer"])`
+### B — Validated feedbacks (per node)
+`mcp__harvestr__list_harvestr_feedback(discovery_ids=[top + all sub ids], source="validated", take=50, include=["customer"])` — paginate until done. Keep which node each feedback is attached to.
 
-Capture all AI-suggested (unvalidated) entries.
+Feedbacks attached directly to the top discovery while sub-discoveries exist are **orphans**: list them separately and propose the sub-discovery they belong to.
+
+### C — Suggested feedbacks (per node)
+`mcp__harvestr__list_harvestr_feedback(discovery_ids=[top + all sub ids], source="suggested", take=50, include=["customer"])`
+
+Capture all AI-suggested (unvalidated) entries, with their node.
 
 ### D — Related Linear issues
 
@@ -116,9 +122,11 @@ Does the "What should be included in Scope" section explicitly address this use 
 
 ---
 
-## Step 4 — Check discovery state
+## Step 4 — Check discovery state (per sub-discovery, then top)
 
-Compare `discoverystateType` against the expected release-time state:
+Assess **each sub-discovery** on its own: a sub-discovery whose feedbacks are all ✅ covered can move to Released; one with ❌ / ❓ feedbacks stays In Progress (or its leftovers move to a backlog discovery). Then derive the top discovery's expected state from its subs: Released only when every sub is Released or explicitly out of scope.
+
+Compare `discoverystateType` of each node against the expected release-time state:
 
 | State type | Assessment |
 |------------|------------|
@@ -169,7 +177,16 @@ Roadmap card: [Feature Name](notion-url)
 
 ---
 
+### 🌳 Sub-discoveries
+
+| Sub-discovery | State now | Feedbacks (✅/⚠️/❌/❓) | Proposed state |
+|---|---|---|---|
+| [Title](harvestr-url) | In Progress | 4/1/0/0 | Released |
+| Orphans on top discovery | — | 2 | move to [sub] |
+
 ### 📋 Feedback Coverage ([N validated])
+
+Group rows by sub-discovery.
 
 | Customer | Feedback (summary) | Verdict | Notes |
 |----------|--------------------|---------|-------|

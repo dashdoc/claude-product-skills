@@ -5,6 +5,8 @@ description: Update Dashdoc roadmap cards in Notion — link the Harvestr discov
 
 # roadmap-card — Update a Roadmap Card
 
+> **Before writing to Notion**, read [`shared-references/notion-style.md`](../shared-references/notion-style.md) (placement, style, links, re-fetch after writing).
+
 Given a Notion roadmap card URL, enrich it with a linked Harvestr discovery and write the card's content (English description + "What is this about?" body). Propose before writing anything.
 
 Can also be called without a URL to **surface cards needing attention** (missing Desc, missing Harvestr link, or status "Not specified") for Fabien's teams — Fabien then picks which one(s) to work on.

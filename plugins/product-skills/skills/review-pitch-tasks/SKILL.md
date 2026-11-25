@@ -61,6 +61,16 @@ Supported edits:
 
 Preserve the pitch's Shape Up shape: stories describe user value; keep the Problem → Solution structure; note open questions inline as `PLACEHOLDER` rather than guessing.
 
+### Standing rules (Fabien restated these every review — apply without being asked)
+
+- **The reference spec page is the truth.** When the pitch has a Notion spec page (e.g. a permission matrix, a terminology page, the roadmap card's Solution), stories must align with it. Check each story against it and flag divergences.
+- **Not in the spec → low priority.** If a story covers an item missing from that spec (e.g. a permission not in the matrix), mark it low priority and say explicitly in the task that it may not be done depending on time available.
+- **Labels.** Every user story carries the `🧑‍💻 Dev` label. Add it when it is missing (and add any reference link Fabien gives, e.g. a Help Center article, to the description).
+- **Links, not keys.** Replace every Linear key mentioned in a Problem/Solution (`NET-877`) with a full link `[NET-877 Title](https://linear.app/dashdoc/issue/NET-877/...)`.
+- **Designer brief lives in the Linear issue, under the Solution** (a `### Design brief` subsection), not in a separate doc.
+  - Be explicit when several solutions are still open and they change the design (e.g. "dev may go per driver instead of company-wide").
+  - Don't be assertive on design choices: the designer decides the UX. Say what matters for the designer to keep in mind (constraints, states, edge cases, data shown), not what the screen should look like.
+
 ## Step 4 — Evidence (when it helps or when asked)
 
 Proactively cross-check, and always when Fabien points to a source:
@@ -74,8 +84,8 @@ Close with a **structure recap**: the final grouped list of active stories (+ su
 
 Then **offer, but don't assume**, the usual follow-ons:
 - **Coverage check** — map an interview/discovery's items to the project, flag anything uncovered / out of scope.
-- **Solution write-up** — synthesise the reviewed stories into a `## Solution` section on the pitch card (Notion).
-- **Designer brief** — generate a brief from the reviewed stories + shaping.
+- **Solution write-up** — synthesise the reviewed stories into a `## Solution` section on the pitch card (Notion), following [`notion-style.md`](../shared-references/notion-style.md) (write under the existing section, links not keys).
+- **Designer brief** — generate a brief from the reviewed stories + shaping, placed under the Solution of the relevant Linear issues (see standing rules).
 
 ## Notes
 

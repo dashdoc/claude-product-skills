@@ -6,6 +6,8 @@ description: Build the OBSERVE step of a Dashdoc shaping — exhaustively gather
 
 # shaping-observe — Gather Evidence & Compose the First Use Case
 
+> **Harvestr structure and working rules** (👷‍♀️ JTBD / 🍫 pitch, one sub-discovery level, clickable links, one plan at a time): read [`shared-references/harvestr-structure.md`](../shared-references/harvestr-structure.md) before reading or restructuring discoveries.
+
 Given a Harvestr discovery (and optionally a roadmap card and its success criteria), produce a **consolidated feedback inventory** and a **First Use Case**, and — on request — a **subdiscovery restructure plan** and/or a **FigJam OBSERVE board**.
 
 This is the OBSERVE deep-dive: the goal is *evidence completeness*. Most shaping starts from the signal already attached to a discovery — but the most valuable signal is often **not** attached, because customers describe the need in their own words, not product vocabulary. This skill's core job is to find that hidden signal.
