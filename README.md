@@ -77,6 +77,6 @@ Then start a new session to load the updated skills.
 ## Notes
 
 - All Dashdoc communications must be in **English**.
-- `shaping-success` and `release-success-dashboard` reference a **`dashdoc-data` skill** (how to query Dashdoc production data through Metabase: which database, working query shapes, schema traps, saved questions). It is **not published in this marketplace yet**: it lives as a local skill in the Product Lead's personal workspace. Ask the product team for a copy and drop it in your own `~/.claude/skills/dashdoc-data/`. Without it, both skills still work but you must find the Metabase database and query shapes yourself.
+- `shaping-success` and `release-success-dashboard` reference a **`dashdoc-data` skill** (how to query Dashdoc production data through Metabase: which database, working query shapes, schema traps, saved questions). It is **not published in this marketplace yet**: you can obtain it from "Customize > Skills > Discover > From your organization". Without it, both skills still work but you must find the Metabase database and query shapes yourself.
 - Skills follow the [Shape Up](https://basecamp.com/shapeup) method and Dashdoc's DoD.
 - Linear, Notion, Harvestr, ConfigCat, and Figma MCPs must be connected for full functionality.
