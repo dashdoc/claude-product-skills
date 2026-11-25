@@ -26,7 +26,7 @@ The single most valuable thing this skill does is ground targets in actual data.
 - **Team pages** (each holds the team vision + KPI dashboard links in 🎯 callouts):
   - Community: `https://app.notion.com/p/2b86d66c0b4a8062be52e2d0f75a5975`
   - The card's `Team` property points to the right team page — always fetch it.
-- **Metabase connector**: tools `mcp__d0aae0b9-…__search`, `…__query`, `…__execute_query`
+- **Metabase connector**: tools `mcp__d0aae0b9-…__search`, `…__query`, `…__execute_query` — **load the `dashdoc-data` skill before querying** (DB choice, MBQL shapes, schema traps, saved-question catalog)
 - **Fabien's KPI reporting**: Slack `#reporting-fabien` (`C07NUU1JD4M`) — extra KPI context (may be flaky; don't block on it)
 - **Harvestr**: the card's `🌾 Harvestr discovery` — for the user value / persona behind the metric
 

@@ -65,13 +65,13 @@ Often it's a split: adoption counts in Metabase, growth/behaviour in Mixpanel �
 
 **Then pick the dashboard to extend** from the *Known dashboards* list above — match by product/area. Only create a new dashboard if none fits (and say so). Confirm the target dashboard/tab with Fabien.
 
-Note: Metabase `search` returns **tables/metrics, not dashboards** — the registry above is your dashboard index, not search.
+Note: Metabase `search` also returns dashboards and saved questions (by title) — use it alongside the registry above. Full catalog: `skills/dashdoc-data/references/catalog.md`.
 
 ---
 
 ## Step 3 — Identify the source data + inspect its schema
 
-**Metabase:** search for the feature's table, prefer the **BigQuery EU mirror** (database `BigQuery (Linear, Intercom, Notion, Github)`, schema `dashdoc_pg_public` — mirrors EU prod; most customers are EU). US = `Dashdoc US`; live EU pg = `Dashdoc Readonly`. Sample rows to learn columns — event timestamp, soft-delete (`deleted` → filter `IS NULL`), the actor, the FK to the owning object. Distinguish the new table from older look-alikes. Large results are saved to a file; parse with python.
+**Metabase:** follow the **`dashdoc-data` skill** (DB choice, MBQL shapes, error→fix, schema traps in `references/schema.md`). Saved questions now go on **STAGING EU (masked)** (db 364) — see dashdoc-data Step 2. For ad-hoc exploration the BigQuery EU mirror is still fine: (database `BigQuery (Linear, Intercom, Notion, Github)`, schema `dashdoc_pg_public` — mirrors EU prod; most customers are EU). US = `Dashdoc US`; live EU pg = `Dashdoc Readonly`. Sample rows to learn columns — event timestamp, soft-delete (`deleted` → filter `IS NULL`), the actor, the FK to the owning object. Distinguish the new table from older look-alikes. Large results are saved to a file; parse with python.
 
 **Mixpanel:** identify the event(s) that represent the adoption action (and confirm they're actually instrumented and firing — no events = no dashboard, flag it). Use the Mixpanel MCP query/board tools when connected.
 
@@ -140,7 +140,7 @@ Close with the baseline headline: **where adoption stands vs the target**, conce
 
 ## Constraints & gotchas
 
-- **Metabase MCP:** `search` = tables/metrics only (no dashboards — use the registry above); no `get-dashboard`, no add-tab/add-card; `create_question` + `create_dashboard` only. Questions land in the personal collection → move to shared.
+- **Metabase MCP:** see `dashdoc-data` for mechanics; `search` finds tables, questions and dashboards; no `get-dashboard`, no add-tab/add-card; `create_question` + `create_dashboard` only. Questions land in the personal collection → move to shared.
 - **Mixpanel** (and other analytics) may be behind OAuth and absent in headless/cron runs — reference the board rather than assuming write access.
 - Large tool results are written to a file — parse with python (`json.JSONDecoder().raw_decode` if there's trailing data).
 - Don't rebuild a metric that already exists on a known board — extend it.

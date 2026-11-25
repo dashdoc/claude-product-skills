@@ -48,7 +48,7 @@ The body's top callout states rollout reality that exists nowhere else:
 
 | Body says | Digest must say |
 |---|---|
-| `under FF X, activated to all today` | nothing — it is fully live |
+| `under FF X, activated to all today` | `_(enabled for everyone)_` in the weekly — it is fully live, and the weekly says so explicitly rather than by silence (see the weekly skill's [enablement annotation](../changelog-digest/SKILL.md#saying-whether-it-is-enabled-to-all)); nothing in the monthly |
 | `under FF X` with no full-activation wording | `_(rolling out)_` |
 | a percentage ramp (`10% → 30% → 50% → 100%`) or `company by company` | `_(rolling out company by company)_` |
 | a region order (`Production EU first, US after`) | fold into the hedge: `_(rolling out, EU first)_` |
@@ -81,6 +81,7 @@ to lose — CS reads these posts and promises things to customers.
 - **Do not upgrade** scope: *some customers* does not become *customers*, *phase 1* does not become *done*.
 - If the body and the `Slack summary` **disagree**, trust the body and flag the divergence in the run log.
 - **Never state or imply general availability** for a change whose body shows any flag, beta, ramp or plan gate. This is the failure mode with real cost: CS and Sales read these digests and promise things to customers.
+- **A body can describe something not live yet.** The weekly announces rows whose activation date is in the future or missing, so an entry may be written in the present tense about a feature nobody can use today. Read the body for *what it does*; the weekly's enablement annotation, not the body's tense, decides what the digest says about availability.
 
 ---
 
