@@ -5,6 +5,8 @@ description: Rework or build the success criteria of a Dashdoc pitch during shap
 
 # shaping-success — Build a Pitch's Success Criteria
 
+> **Before writing to Notion**, read [`shared-references/notion-style.md`](../shared-references/notion-style.md) (placement, style, links, re-fetch after writing).
+
 Given a roadmap card (pitch), produce **measurable, strategy-linked success criteria**: run the rubric, ladder the pitch into the company strategy, pull real baselines from Metabase, grill Fabien on the open questions, then draft a `👍 Success criteria` + `💣 Damage control` block ready for the Notion card and the FigJam `FRAME > AMBITION` section.
 
 This skill is the deep-dive companion to **shaping-start** (which drafts Frame/Observe/Claim). Use it when the metrics need real work, not a first pass.

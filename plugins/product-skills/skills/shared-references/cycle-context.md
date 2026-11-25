@@ -21,16 +21,14 @@ Don't use Linear cycle dates: Linear opens each cycle a week before it actually 
 
 ## 2. Week label
 
-Cycles are 6 weeks = 5 execution weeks + 1 shaping week, and the shaping week is the **4th week of the cycle** (not the last). Cooldowns sit between cycles (usually 2 weeks).
+Cycles are 6 weeks, followed by a cooldown (usually 2 weeks). There is no dedicated shaping week anymore (dropped Nov 2026). Cadence may evolve: see [`product-process.md`](product-process.md).
 
-| Week of the cycle | Label |
+| Week | Label |
 |---|---|
-| 1, 2, 3 | `Cycle N — Execution week 1/5`, `2/5`, `3/5` |
-| 4 | `Cycle N — Shaping week` |
-| 5, 6 | `Cycle N — Execution week 4/5`, `5/5` |
+| 1–6 of the cycle | `Cycle N — Week X/6` |
 | Cooldown | `Cooldown week X/Y — before Cycle N+1` |
 
-Example: `Cycle 37` 14/09–23/10 → week of 21/09 = `Execution week 2/5`, week of 05/10 = `Shaping week`, 12/10 = `Execution week 4/5`, 19/10 = `Execution week 5/5`, then `Cooldown` 26/10–06/11 before `Cycle 38` (09/11).
+Example: `Cycle 38` from 09/11 → week of 23/11 = `Cycle 38 — Week 3/6`.
 
 ## 3. Rituals
 
@@ -47,6 +45,6 @@ Compare with the week file's `> Cycle N — …` header. If they disagree, say s
 
 ## Uses
 
-- Deadline inference in `/triage` ("before shaping week", "before the betting table", "before Cycle 38")
-- The cycle banner and shaping-week protection in `/plan-week`
-- The Thursday 14:00–18:05 block is the standing shaping slot every week, whatever the phase
+- Deadline inference in `/triage` ("before the betting table", "before Cycle 39")
+- The cycle banner in `/plan-week`
+- Thursday is team weeklys day; there is no standing shaping slot anymore

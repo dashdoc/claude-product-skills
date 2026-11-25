@@ -1,11 +1,15 @@
 ---
 name: release-faq
-description: Update the Dashdoc internal FAQ in Notion from pitch content or Linear tickets — audit existing entries, plan creates/updates/removals, confirm, then implement. Accepts free-form text, --linear with issue IDs, or --linear-project with a project name. Use whenever Fabien says things like "update the FAQ", "FAQ for [pitch]", "check the FAQ against what shipped", "audit the FAQ", "add FAQ entries for FLO-xxx", "document this release in the FAQ", or any equivalent request involving the internal FAQ database. Always confirm the change plan with Fabien before editing Notion.
+description: Create, update or audit entries in the Dashdoc internal FAQ (Notion "References - FAQ" database), at release time OR any other time. Release mode takes pitch content, Linear tickets or a Linear project; the non-release mode takes a Slack thread, a regulation or legal text, a customer question, or a single Linear ticket. It audits existing entries, plans creates/updates/removals, confirms, then implements. Use whenever Fabien says things like "update the FAQ", "FAQ for [pitch]", "check the FAQ against what shipped", "audit the FAQ", "add FAQ entries for FLO-xxx", "document this release in the FAQ", "add this Slack thread to the FAQ", "FAQ entry from this regulation", "put this answer in the FAQ", "fix this FAQ page, it doesn't follow our conventions", "FAQ Moderation entry", or any equivalent request involving the internal FAQ database. Always confirm the change plan with Fabien before editing Notion.
 ---
 
-# release-faq — Update the Dashdoc Internal FAQ
+# release-faq — Create and maintain the Dashdoc internal FAQ
 
-Given pitch content or a list of Linear tickets, audit the FAQ in Notion, identify what needs to be created, updated, or removed, propose changes for confirmation, then implement them.
+Given pitch content, Linear tickets, a Slack thread, a regulation text or a customer question, audit the FAQ in Notion, identify what needs to be created, updated, or removed, propose changes for confirmation, then implement them.
+
+The folder keeps the name `release-faq` so the plugin sync and existing `/release-faq` calls keep working. The skill is no longer release-only.
+
+Before writing to Notion, read [`shared-references/notion-style.md`](../shared-references/notion-style.md). The FAQ-specific rules below override it where they differ.
 
 ## Usage
 
@@ -13,6 +17,8 @@ Given pitch content or a list of Linear tickets, audit the FAQ in Notion, identi
 release-faq "[pitch name or free-form description of changes]"
 release-faq --linear [issue-id] [[issue-id]...]
 release-faq --linear-project [project-name]
+release-faq --from [slack-thread-url | notion-url | pasted text]     # non-release mode
+release-faq --audit [faq-page-url]                                   # convention check of one page
 ```
 
 **Examples:**
@@ -20,20 +26,36 @@ release-faq --linear-project [project-name]
 release-faq "Zone Management — new feature allowing admins to define delivery zones per site"
 release-faq --linear FLO-412 FLO-415 FLO-418
 release-faq --linear-project "CRUD of signatories"
+release-faq --from https://dashdoc.slack.com/archives/C.../p17...
+release-faq --audit https://app.notion.com/p/dashdoc/FAQ-eFTI-...
 ```
 
 **Arguments:**
 - Free-form text / pitch name → use as input directly
 - `--linear [ids]` → fetch those Linear issues to extract feature details
 - `--linear-project [name]` → search Linear for issues in that project and fetch them all
+- `--from [source]` → non-release mode (see Step 1b)
+- `--audit [page]` → check one FAQ page against the conventions below and propose a rework, no new content
+
+**Called by `release-pitch`:** the orchestrator passes a fact sheet (feature name, Linear project, roadmap card, FF state). Use it and don't re-ask what it already answers.
 
 ---
 
 ## FAQ location
 
-- **Parent page**: `https://www.notion.so/dashdoc/46318bb1cffa412f87d76bf667f02fad`
-- This page contains all FAQ sub-pages. Each sub-page is a thematic section of the FAQ.
-- Structure within each page follows: `# Section` → `## Subsection` → `> ### Question` → answer content
+- **Database**: `ℹ️ References - FAQ` — `https://www.notion.so/dashdoc/46318bb1cffa412f87d76bf667f02fad`, data source `collection://900062aa-5405-48ec-9159-fa4c055d8567`.
+- Each row is one thematic FAQ page (title property `Référence`, e.g. "FAQ Moderation"). The DB "FAQ" view filters on titles containing "FAQ".
+- Row properties to set on a new page: `Status` (WIP / Up to date / Deprecated), `Category` (🤩 Feature, 🤔 Howto, 🫀 Concept, 🧨 Problem, Tools), `Audience` (🔒 Internal, 🌍 Public, 🤑 Sales, 👷‍♀️ Ops), `Themes`, `🧩 Domains`, `🍫 Pitches` (relation to the pitch/roadmap card when there is one).
+- Structure within each page: `# Section` → `## Subsection` → question as an **H3 toggle heading** → answer inside the toggle. In fetched Notion markdown the question appears as `<toggle heading="h3">Question?…</toggle>`; write new ones the same way, matching the page's existing entries.
+
+### Which page
+
+| Topic | Page |
+|---|---|
+| Staff-only tools: Moderation (the backoffice), Django admin, demo environment, merges, "Connect as user", entitlements testing | [FAQ Moderation](https://app.notion.com/p/dashdoc/FAQ-Moderation-12a6d66c0b4a8086b843c0b4480c5530) |
+| Anything else | The thematic page whose title matches (search the DB first). If none fits, propose a new row. |
+
+Moderation = Dashdoc's internal backoffice. If the answer only helps staff act from Moderation, it goes in FAQ Moderation, not in the customer-facing feature page.
 
 ---
 
@@ -58,6 +80,23 @@ Use it directly as the feature description.
 
 If the input is ambiguous or too thin to identify FAQ implications, ask Fabien:
 > "Can you share more detail about what changed? (e.g., new workflows, renamed concepts, removed features, changed permissions)"
+
+### Step 1b — Non-release mode (`--from`)
+
+The input is a source to turn into answers, not a shipped feature.
+
+| Source | How to read it |
+|---|---|
+| Slack thread | `slack_read_thread` on the permalink. Keep the **final** answer given in the thread (later replies often correct earlier ones). Note who answered: a PM, dev or legal answer outranks a guess. |
+| Regulation / legal text | Read the official text or the legal memo Fabien points to. Quote the article or section the answer rests on, and link it in the answer. |
+| Customer question | Find the behaviour in the product (Linear, existing FAQ, code if needed) before writing. If you can't confirm it, say so in the plan instead of writing an answer. |
+| Single Linear ticket | Same as `--linear`. |
+
+Then go to Step 2 as usual. The plan in Step 4 shows, for each new or changed entry, the source line it comes from (thread message, article number, ticket).
+
+### `--audit` mode
+
+Fetch the page, compare it to **Conventions** below and to its sibling FAQ pages, and present a rework plan (structure, wording, misplaced entries, properties). No new facts. Then Step 4 → 5 as usual.
 
 ---
 
@@ -109,9 +148,9 @@ Check for:
 
 Build a comprehensive change plan. For each change:
 
-**For updates:** specify the page URL, section path (`# Section > ## Subsection > > ### Question`), what the current text says, and what it should say instead.
+**For updates:** specify the page URL, section path (`# Section > ## Subsection > Question`), what the current text says, and what it should say instead.
 
-**For creations:** specify which page and subsection to place the entry in (or propose a new subsection), the question as a `> ### ...` heading, and the full answer content.
+**For creations:** specify which page and subsection to place the entry in (or propose a new subsection), the question as an H3 toggle heading, and the full answer content.
 
 **For removals:** specify the page URL, section path, and clear justification.
 
@@ -134,7 +173,7 @@ Present the full plan before touching Notion:
 ### 📝 Updates ([N])
 
 **1. [Page Title](Notion URL)**
-Section: `# Section > ## Subsection > > ### Question title`
+Section: `# Section > ## Subsection > Question title`
 
 > **Current:** [existing answer, trimmed if long]
 
@@ -145,7 +184,7 @@ Section: `# Section > ## Subsection > > ### Question title`
 ### ✅ New entries ([N])
 
 **1. Placement:** [Page Title](URL) → `# Section > ## Subsection`
-> ### [Question as it will appear]
+> **[Question as it will appear]** (H3 toggle)
 [Full answer content]
 
 ---
@@ -153,13 +192,13 @@ Section: `# Section > ## Subsection > > ### Question title`
 ### 🗑️ Removals ([N])
 
 **1. [Page Title](URL)**
-Section: `> ### Question title`
+Section: `Question title`
 **Reason:** [why this entry is now obsolete or contradictory]
 
 ---
 
 ### Structure verification
-All new entries are placed at the `> ### Question` level within a `## Subsection` — no nesting.
+All new entries are placed as H3 question toggles within a `## Subsection` — no nesting.
 
 ---
 Proceed with these changes? (yes / edit first / skip)
@@ -180,7 +219,7 @@ Implement in this order: updates first, then creations, then removals.
 For each update, use `mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-update-page` to modify the relevant block(s) on the page. Preserve all surrounding content exactly — change only the identified entry.
 
 ### Creations
-For new entries within an existing page, use `mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-update-page` to append the new `> ### Question` block and its answer into the correct subsection.
+For new entries within an existing page, use `mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-update-page` to insert the new H3 question toggle and its answer into the correct subsection.
 
 For new pages (if proposed and approved), use `mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-create-pages` with the FAQ parent page as parent, following the required structure format exactly.
 
@@ -192,15 +231,28 @@ Use `mcp__64ac3cb2-924b-40b4-9f54-5c21553586f6__notion-update-page` to remove th
 ```
 # Section Name
 ## Subsection Name
-> ### Question as a question?
-Answer text directly below, no extra formatting.
+<toggle heading="h3">
+Question as a question?
+
+Answer text inside the toggle, no extra formatting.
+</toggle>
 ```
 
 Rules:
-- `> ### Questions` ONLY exist inside `## Subsections`
+- Question toggles (H3) ONLY exist inside `## Subsections`
 - Never nest FAQ entries inside other FAQ entries
 - All entries within a subsection are at the same level
 - No markdown headers (`####`, `#####`) inside answer content — use bold or bullet lists instead
+- After writing, re-fetch the page and check each new toggle renders as an H3 toggle in the right subsection
+
+### Conventions (Fabien's corrections, keep them)
+
+- **UI strings exactly as shipped.** Quote labels, menu paths and separators as the product shows them, not as the Linear spec or the pitch wrote them. Example: the shipped tab label was `Day - Site` (hyphen) while the Linear project said `Day · Site`; the FAQ had to be fixed. When in doubt, check the English locale file or a screenshot.
+- **No claim you aren't sure of.** Especially legal and regulatory ones: no fines, obligations or "is compliant" statements unless the source text says so. If it is not legally certain, leave it out or mark it as to be confirmed, and say so in the plan.
+- **"Too strong" check.** Before showing the plan, reread each answer for absolute wording ("does not need", "never", "always", "is not required"). Prefer what the user can do: "If they need it, they can find it in the guest portal and on the tracking page" rather than "The client does not need it attached".
+- **Placement.** Staff/backoffice answers go in FAQ Moderation. Don't create a new page when an existing thematic page fits.
+- **Self-contained answers.** Agents read the FAQ too: no "see above", no "as discussed".
+- **Links.** Link Linear issues, Help Center articles and Metabase questions with full URLs, never bare keys.
 
 ---
 

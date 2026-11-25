@@ -5,6 +5,8 @@ description: Create the changelog entry for a released Dashdoc feature — class
 
 # release-changelog — Create the Changelog DB Entry
 
+> **Before writing to Notion**, read [`shared-references/notion-style.md`](../shared-references/notion-style.md) (placement, style, links, re-fetch after writing).
+
 Given a pitch page or Linear ticket(s): classify the change, qualify it, draft the body, confirm with Fabien, then **create one row in the 🛎️ Changelog database**. Posting to `#changelog` is handled automatically by a native Notion→Slack automation on row creation — there is no manual Slack step.
 
 > This skill implements the [Changelog overload PDR](https://app.notion.com/p/3996d66c0b4a8105ae93e6213d6ed0dc): one qualified row per shipped change is the single source of truth; distribution is driven off `Communication Priority`.
