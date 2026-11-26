@@ -30,6 +30,7 @@ Read this before any skill writes to a Notion page (create, update, append). Eac
 
 - **Linear keys → full URLs.** Never leave a bare `FLO-123` / `NET-456` in a page body. Write `[FLO-123 Title](https://linear.app/dashdoc/issue/FLO-123/...)`.
 - **Harvestr, Metabase, Figma** — full clickable URLs with the title as link text, never ids.
+- **Notion page links outside Notion (HubSpot notes, Slack, Linear, emails): `https://app.notion.com/p/dashdoc/<page-id>`.** The id is the 32-hex string at the end of the page URL (no dashes). The title slug is optional, so don't build one: accents and emojis in titles make it unreliable. This form is **broken** ("This page couldn't be found"): `https://app.notion.com/<id>` (no `/p/dashdoc/`). `https://app.notion.com/p/<id>` (no workspace) is untested: don't use it. `notion-fetch` / `notion-query-data-sources` return `app.notion.com/<id>` or `app.notion.com/p/<id>`: take the id from them and rebuild the link. Tested 26 Nov 2026 on Community interview pages.
 - **Durable links only.** Notion file/media URLs expire; for videos use the hosted link (Tella) instead of an uploaded file link.
 
 ## 4. Notion markdown traps

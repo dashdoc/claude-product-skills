@@ -91,3 +91,7 @@ If the PM wants it: a subtask under the Community discovery parent issue in Line
 - Re-fetch the page: one table for the guideline, no leftover template text, meeting block present, links resolve.
 - Return: page URL, what was filled, what is missing (Planhat, interview date, interviewers), the recording reminder, the open comments if any.
 - If the PM keeps a work log, add one line with the link to the page.
+
+## Step 7 — HubSpot note (interview planned)
+
+Once the page exists, log it in HubSpot so the CRM shows the interview from the day it is booked. Follow [hubspot-interview-note](../shared-references/hubspot-interview-note.md): contact from the calendar invite email, company through the contact, ONE note on both, status "planned", link built as `https://app.notion.com/p/dashdoc/<page-id>`. Show the table (contact, company, note text) with the page plan and create it on the PM's yes. If a lookup is ambiguous or write access is missing, don't block the page: put "HubSpot note: TODO (reason)" in the report. In express mode, skip it and list it under "Not checked".

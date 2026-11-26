@@ -43,7 +43,9 @@ Report, skimmable:
 - **Due for a reminder** (company, send date, contact) with the proposed one-liner — the drafts themselves are created interactively by `itw-outreach-drafts`.
 - Counts: contacted, booked, declined, waiting, done.
 
-Append to the inbox file (one `* [ ] …` per item, no duplicates: grep first): a prep item per new booking (`Prep itw <company> (<date> <time>)`), a reply item per unanswered reply, and one grouped item `Send reminders: <companies>` when some are due.
+- **HubSpot notes missing** — for each booked or done interview with an Interview-DB page, search NOTE in HubSpot (read-only, per [hubspot-interview-note](../shared-references/hubspot-interview-note.md)) for the Notion page id. List the companies with no note. Never create one from this skill.
+
+Append to the inbox file (one `* [ ] …` per item, no duplicates: grep first): a prep item per new booking (`Prep itw <company> (<date> <time>)`), a reply item per unanswered reply, one grouped item `Send reminders: <companies>` when some are due, and one grouped item `HubSpot notes missing: <companies>` (next step: `itw-page-prep` Step 7 or `itw-process` Step 6).
 
 ## Scheduling
 

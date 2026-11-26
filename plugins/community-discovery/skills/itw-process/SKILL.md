@@ -87,6 +87,7 @@ Use the `/discovery-insights` format: **When / I want to / So I can**, a Context
 
 ## Step 6 — Close
 
+- **HubSpot note:** follow [hubspot-interview-note](../shared-references/hubspot-interview-note.md). Find the "planned" note by the Notion page id and update it to "done / processed" (`Processed: <n> insights in Harvestr.`), or create it if `itw-page-prep` never did. Same note, never a second one. Include it in the Step 5.2 approval question so there is no extra round trip. Report the HubSpot note link; if write access is missing, say "HubSpot note: not done" with the reason.
 - Optional Linear update on the interview's COM subtask (comment with the page + Harvestr links), only if the PM wants it.
 - If the user keeps a work log, add one line. List open items: facts to verify, follow-ups, hypotheses whose status changed.
 
